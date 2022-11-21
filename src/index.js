@@ -38,6 +38,7 @@ function onSearch(e) {
         data.hits.forEach(createGalleryItemMarkup);
         refs.loadBtn.classList.remove("is-hidden");
         Notify.success(`Hooray! We found ${data.totalHits} images.`);
+        smoothPageScrolling();
       }
     
     }).catch(error => console.log(error))
@@ -88,10 +89,20 @@ function createGalleryItemMarkup({ largeImageURL, tags, likes, views, comments, 
 
 function onImageClick(e) {
   e.preventDefault();
-  
+
   let galleryCard = new SimpleLightbox('.img-container a', {captionsData: 'alt',
   captionPosition: 'bottom',
   captionDelay: 250, });
   galleryCard.refresh();
   refs.gallery.addEventListener("click", galleryCard);
 }
+function smoothPageScrolling() {
+    const { height: cardHeight } = document
+     .querySelector(".gallery")
+     .firstElementChild.getBoundingClientRect();
+ 
+     window.scrollBy({
+     top: cardHeight * 2,
+     behavior: "smooth",
+     }); 
+ }
