@@ -24,13 +24,17 @@ export default class PhotoApiService {
         try {
             const response = await axios(axiosOptions);
             const data = response.data;
-            this.page += 1;
+            this.incrementPage();
             return data;
         }
         catch (error) {
             console.error(error);
         }
         }
+    incrementPage() {
+        this.page += 1;
+         }
+
     resetPage() { 
         this.page = 1;
     }
